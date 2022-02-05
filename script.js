@@ -9,7 +9,12 @@ const btnCloseModal = document.querySelector('.btn--close-modal');
 const btnsOpenModal = document.querySelectorAll('.btn--show-modal');
 const btnScrollTo = document.querySelector('.btn--scroll-to');
 const section1 = document.querySelector('#section--1');
+const tabs = document.querySelectorAll('.operations__tab');
+const tabsContainer = document.querySelector('.operations__tab-container');
+const tabsContent = document.querySelectorAll('.operations__content');
+const nav = document.querySelector('.nav');
 
+// Modal functionality
 const openModal = function (e) {
   e.preventDefault();
   modal.classList.remove('hidden');
@@ -32,6 +37,8 @@ document.addEventListener('keydown', function (e) {
   }
 });
 
+//Scroll on CTA hero
+
 btnScrollTo.addEventListener('click', e => {
   //New way
   section1.scrollIntoView({ behavior: 'smooth' });
@@ -49,23 +56,42 @@ document.querySelector('.nav__links').addEventListener('click', e => {
 
 //Tabbled component
 
-const tabs = document.querySelectorAll('.operations__tab');
-const tabsContainer = document.querySelector('.operations__tab-container');
-const tabsContent = document.querySelectorAll('.operations__content');
-
 tabsContainer.addEventListener('click', e => {
   const clickedButton = e.target.closest('.operations__tab');
 
   //Guard clause
   if (!clickedButton) return;
 
+  // Remove active classes
   tabs.forEach(tab => tab.classList.remove('operations__tab--active'));
   tabsContent.forEach(tab =>
     tab.classList.remove('operations__content--active')
   );
 
+  // Activate tab title
   clickedButton.classList.add('operations__tab--active');
+
+  //Activate tab content
   document
     .querySelector(`.operations__content--${clickedButton.dataset.tab}`)
     .classList.add('operations__content--active');
 });
+
+// Navigation fade
+
+const handleHover = function (e) {
+  if (e.target.classList.contains('nav__link')) {
+    const link = e.target;
+    const siblings = link.closest('.nav').querySelectorAll('.nav__link');
+    const logo = link.closest('.nav').querySelector('img');
+
+    siblings.forEach(sibling => {
+      if (sibling !== link) sibling.style.opacity = this;
+    });
+    logo.style.opacity = this;
+  }
+};
+
+nav.addEventListener('mouseover', handleHover.bind(0.5));
+
+nav.addEventListener('mouseout', handleHover.bind(1));
