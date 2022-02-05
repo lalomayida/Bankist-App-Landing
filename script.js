@@ -33,27 +33,11 @@ document.addEventListener('keydown', function (e) {
 });
 
 btnScrollTo.addEventListener('click', e => {
-  //Old way
-  // const s1coords = section1.getBoundingClientRect();
-  // window.scrollTo({
-  //   left: s1coords.left,
-  //   top: s1coords.right,
-  //   behavior: 'smooth',
-  // });
-
   //New way
   section1.scrollIntoView({ behavior: 'smooth' });
 });
 
 //Page navigation
-
-// document.querySelectorAll('.nav__link').forEach(navLink => {
-//   navLink.addEventListener('click', function (e) {
-//     e.preventDefault();
-//     const id = this.getAttribute('href');
-//     document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
-//   });
-// });
 
 document.querySelector('.nav__links').addEventListener('click', e => {
   e.preventDefault();
@@ -61,4 +45,27 @@ document.querySelector('.nav__links').addEventListener('click', e => {
     const id = e.target.getAttribute('href');
     document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
   }
+});
+
+//Tabbled component
+
+const tabs = document.querySelectorAll('.operations__tab');
+const tabsContainer = document.querySelector('.operations__tab-container');
+const tabsContent = document.querySelectorAll('.operations__content');
+
+tabsContainer.addEventListener('click', e => {
+  const clickedButton = e.target.closest('.operations__tab');
+
+  //Guard clause
+  if (!clickedButton) return;
+
+  tabs.forEach(tab => tab.classList.remove('operations__tab--active'));
+  tabsContent.forEach(tab =>
+    tab.classList.remove('operations__content--active')
+  );
+
+  clickedButton.classList.add('operations__tab--active');
+  document
+    .querySelector(`.operations__content--${clickedButton.dataset.tab}`)
+    .classList.add('operations__content--active');
 });
