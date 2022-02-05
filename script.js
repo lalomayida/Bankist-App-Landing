@@ -47,10 +47,18 @@ btnScrollTo.addEventListener('click', e => {
 
 //Page navigation
 
-document.querySelectorAll('.nav__link').forEach(navLink => {
-  navLink.addEventListener('click', function (e) {
-    e.preventDefault();
-    const id = this.getAttribute('href');
+// document.querySelectorAll('.nav__link').forEach(navLink => {
+//   navLink.addEventListener('click', function (e) {
+//     e.preventDefault();
+//     const id = this.getAttribute('href');
+//     document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
+//   });
+// });
+
+document.querySelector('.nav__links').addEventListener('click', e => {
+  e.preventDefault();
+  if (e.target.classList.contains('nav__link')) {
+    const id = e.target.getAttribute('href');
     document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
-  });
+  }
 });
