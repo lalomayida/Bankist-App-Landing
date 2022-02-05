@@ -152,7 +152,8 @@ const revealImage = function (entries, observer) {
 
 const imageObserver = new IntersectionObserver(revealImage, {
   root: null,
-  threshold: 1,
+  threshold: 0,
+  rootMargin: '200px',
 });
 
 allImages.forEach(image => imageObserver.observe(image));
